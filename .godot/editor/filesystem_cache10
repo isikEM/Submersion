@@ -1,9 +1,9 @@
 78098b89c88a74ebe8c20117b8754620
-::res://::1793525941
-main.tscn::PackedScene::5872328730694011315::1793512176::0::1::::<><><>0<>0<><>::uid://c2wfcjjquf4wt::::res://scripts/main.gd
-README.md::TextFile::-1::1793452074::0::1::::<><><>0<>0<><>::
-::res://audio/::1793528001
-README.txt::TextFile::-1::1793525693::0::1::::<><><>0<>0<><>::
+::res://::1793533407
+cursorg.png::CompressedTexture2D::4342244085855205772::1793533407::1793533408::1::::<><><>0<>0<>439f6adb7ca1570be859e9fa900c3fd6<>res://.godot/imported/cursorg.png-f993313a074730d9c42ebaadd728fb5f.ctex::
+main.tscn::PackedScene::5872328730694011315::1793528464::0::1::::<><><>0<>0<><>::uid://c2wfcjjquf4wt::::res://scripts/main.gd
+README.md::TextFile::-1::1793529858::0::1::::<><><>0<>0<><>::
+::res://audio/::1793528490
 thunder.wav::AudioStreamWAV::4391640085620987808::1793527242::1793527300::1::::<><><>0<>0<>816e1f5bb4d01d8a958bb7ee51843693<>res://.godot/imported/thunder.wav-4c1897e382a5e79ceb507480ab196397.sample::
 thunder_2.wav::AudioStreamWAV::3710008614011770711::1793527920::1793528007::1::::<><><>0<>0<>8a10d7535b1be8ffce1fa8a1693c3655<>res://.godot/imported/thunder_2.wav-535315b489ad1e48d338425375c423ca.sample::
 thunder_3.wav::AudioStreamWAV::7155066756148560834::1793527944::1793528007::1::::<><><>0<>0<>0d178f6bc1bc2154c899514b12074ec3<>res://.godot/imported/thunder_3.wav-9d3e500bf8fafd6ef5b98ef074c734b8.sample::
@@ -26,8 +26,8 @@ seawall.glb::PackedScene::4519366736391070578::1793455251::1793463231::1::::<><>
 solar.glb::PackedScene::1182181701933753079::1793455250::1793463231::1::::<><><>0<>0<>91ee4c2a9f9825d74ac3993d1193bd52<>res://.godot/imported/solar.glb-f6601416c1cbfb35b3b8a694253ede64.scn::
 vfarm.glb::PackedScene::4256726936748295077::1793455250::1793463232::1::::<><><>0<>0<>47d1f74bf1685f9fdb926f1314482482<>res://.godot/imported/vfarm.glb-ee50b5c969c260120650a9af5e8b8550.scn::
 wind.glb::PackedScene::5590880824432833887::1793455250::1793463233::1::::<><><>0<>0<>e96b35108602e0fb23494c5d1da34f91<>res://.godot/imported/wind.glb-dc17a1d86289d7241dcff8351817b9fb.scn::
-::res://scripts/::1793526008
-audio_manager.gd::GDScript::8498942431543291449::1793525741::0::1::::<>Node<><>0<>0<><>::
+::res://scripts/::1793528011
+audio_manager.gd::GDScript::8498942431543291449::1793528011::0::1::::<>Node<><>0<>0<><>::
 building.gd::GDScript::5707711953644717833::1793511810::0::1::::<>Node3D<><>0<>0<><>::
 building_visuals.gd::GDScript::3600117137146039816::1793415420::0::1::::<>RefCounted<><>0<>0<><>::
 camera_rig.gd::GDScript::4817768260961747607::1793525777::0::1::::<>Node3D<><>0<>0<><>::

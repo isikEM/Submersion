@@ -32,6 +32,11 @@ window/size/window_width_override=1280
 window/size/window_height_override=720
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
+mouse_cursor/custom_image="uid://b24oejj5mqyky"
+
+[editor]
+
+movie_writer/movie_file="C:/Users/ensar/OneDrive/Documenten/daralan-cember/Movie/kayit-1.avi"
 
 [rendering]
 

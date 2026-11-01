@@ -1,0 +1,15 @@
+# Godot 4
+.godot/
+*.translation
+export_credentials.cfg
+.mono/
+/android/
+*.tmp
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+__pycache__/
+*.pyc

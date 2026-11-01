@@ -46,7 +46,7 @@ func _process(delta: float) -> void:
 		return
 	if Game.day > 40 and _tip("energy", "Elektrik üretimi tüketimden azsa fabrikalar yavaşlar. Kömür güçlü ama kirli, güneş ve rüzgar temiz."):
 		return
-	if Game.day > 120 and _tip("forecast", "Turuncu gölge ~5 yıl, kırmızı ~2 yıl içinde batacak yerleri gösterir. T ile açıp kapat."):
+	if Game.day > 120 and _tip("forecast", tr("Turuncu gölge ~5 yıl, kırmızı ~2 yıl içinde batacak yerleri gösterir. %s ile açıp kapat.") % Cfg.key_name("forecast")):
 		return
 	if Game.risk_count > 0 and _tip("risk", "Kırmızı işaret: bina batmak üzere. Set kur ya da yükselt."):
 		return

@@ -30,6 +30,8 @@ var tab_btns: Array = []
 var content: VBoxContainer
 var cur_tab := 0
 var snap := {}
+var listening := ""
+var listen_btn: Button = null
 
 
 func _ready() -> void:
@@ -253,10 +255,13 @@ func _build_settings() -> void:
 	mc.add_theme_constant_override("margin_bottom", 110)
 	mc.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	set_root.add_child(mc)
+	var sc := ScrollContainer.new()
+	sc.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	mc.add_child(sc)
 	content = VBoxContainer.new()
 	content.add_theme_constant_override("separation", 0)
-	content.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	mc.add_child(content)
+	content.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	sc.add_child(content)
 
 	var bline := ColorRect.new()
 	bline.color = Color(1, 1, 1, 0.12)
@@ -311,7 +316,7 @@ func _build_settings() -> void:
 
 
 func _snapshot() -> Dictionary:
-	return {"master": Cfg.master, "music": Cfg.music, "sfx": Cfg.sfx, "fullscreen": Cfg.fullscreen, "low_gfx": Cfg.low_gfx, "float_text": Cfg.float_text, "tips": Cfg.tips, "ui_scale_idx": Cfg.ui_scale_idx, "win_size_idx": Cfg.win_size_idx, "lang": Cfg.lang}
+	return {"master": Cfg.master, "music": Cfg.music, "sfx": Cfg.sfx, "fullscreen": Cfg.fullscreen, "low_gfx": Cfg.low_gfx, "float_text": Cfg.float_text, "tips": Cfg.tips, "ui_scale_idx": Cfg.ui_scale_idx, "win_size_idx": Cfg.win_size_idx, "lang": Cfg.lang, "keys": Cfg.keys.duplicate()}
 
 
 func _revert() -> void:
@@ -325,6 +330,7 @@ func _revert() -> void:
 	Cfg.ui_scale_idx = snap.ui_scale_idx
 	Cfg.win_size_idx = snap.win_size_idx
 	Cfg.lang = snap.lang
+	Cfg.keys = snap.keys.duplicate()
 	Cfg.apply()
 	Cfg.fit_window()
 	_select_tab(cur_tab)
@@ -353,6 +359,7 @@ func _close_settings(accept: bool) -> void:
 
 
 func _select_tab(i: int) -> void:
+	_stop_listen()
 	cur_tab = i
 	for k in tab_btns.size():
 		var b: Button = tab_btns[k]
@@ -370,9 +377,9 @@ func _select_tab(i: int) -> void:
 			_tab_controls()
 
 
-func _row(text: String) -> HBoxContainer:
+func _row(text: String, height: float = 64.0) -> HBoxContainer:
 	var row := HBoxContainer.new()
-	row.custom_minimum_size = Vector2(0, 64)
+	row.custom_minimum_size = Vector2(0, height)
 	row.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	var l := UIStyle.label(text, 16, UIStyle.TXT)
 	l.custom_minimum_size = Vector2(420, 0)
@@ -489,14 +496,74 @@ func _tab_audio() -> void:
 
 
 func _tab_controls() -> void:
-	var items := [
-		["Bina yerleştir / seç", "SOL TIK"], ["Alan seç (kutu)", "SOL TIK + SÜRÜKLE"], ["İptal", "SAĞ TIK / ESC"],
-		["Kamerayı kaydır", "WASD / OKLAR / ORTA TUŞ"], ["Döndür", "Q / E"], ["Yakınlaş", "TEKERLEK"],
-		["Duraklat", "BOŞLUK"], ["Hız", ", VE ."], ["Sel tahmini", "T"], ["Yükselt", "U"], ["Yık", "X"], ["Bina kısayolları", "1 - 0"]]
+	var items := [["Bina yerleştir / seç", "SOL TIK"], ["Alan seç (kutu)", "SOL TIK + SÜRÜKLE"], ["İptal", "SAĞ TIK / ESC"], ["Kamerayı kaydır", "OKLAR / ORTA TUŞ"], ["Yakınlaş", "TEKERLEK"], ["Bina kısayolları", "1 - 0"]]
 	for it in items:
-		var h := _row(it[0])
-		var l := UIStyle.label(it[1], 15, Color(0.92, 0.9, 0.82), 2)
-		h.add_child(l)
+		var h := _row(it[0], 46.0)
+		h.add_child(UIStyle.label(it[1], 15, Color(0.92, 0.9, 0.82), 2))
+	var binds := [["pan_up", "Kamera ileri"], ["pan_down", "Kamera geri"], ["pan_left", "Kamera sola"], ["pan_right", "Kamera sağa"], ["rot_left", "Sola döndür"], ["rot_right", "Sağa döndür"], ["pause", "Duraklat"], ["slower", "Yavaşlat"], ["faster", "Hızlandır"], ["forecast", "Sel tahmini"], ["upgrade", "Yükselt"], ["demolish", "Yık"]]
+	for b in binds:
+		var holder := _row(b[1], 46.0)
+		var btn := Button.new()
+		btn.custom_minimum_size = Vector2(260, 34)
+		UIStyle.style_button(btn, 15, 2)
+		btn.text = Cfg.key_name(b[0])
+		var act: String = b[0]
+		btn.pressed.connect(func(): _begin_listen(act, btn))
+		holder.add_child(btn)
+	var reset_row := _row("", 56.0)
+	var rb := Button.new()
+	rb.text = "TUŞLARI SIFIRLA"
+	rb.custom_minimum_size = Vector2(260, 36)
+	UIStyle.style_button(rb, 14, 3)
+	rb.pressed.connect(func():
+		Sfx.play("click")
+		Cfg.reset_keys()
+		_select_tab(cur_tab))
+	reset_row.add_child(rb)
+
+
+func _begin_listen(action: String, btn: Button) -> void:
+	Sfx.play("click")
+	if listening == action:
+		_stop_listen()
+		return
+	_stop_listen()
+	listening = action
+	listen_btn = btn
+	btn.text = tr("BİR TUŞ SEÇ")
+
+
+func _stop_listen() -> void:
+	if listening != "" and listen_btn != null and is_instance_valid(listen_btn):
+		listen_btn.text = Cfg.key_name(listening)
+	listening = ""
+	listen_btn = null
+
+
+func _reserved(code: int) -> bool:
+	if code >= KEY_0 and code <= KEY_9:
+		return true
+	return code in [KEY_MINUS, KEY_EQUAL, KEY_ESCAPE, KEY_UP, KEY_DOWN, KEY_LEFT, KEY_RIGHT, KEY_ENTER]
+
+
+## Tus atama modu: bir sonraki tusa basilinca atanir. ESC iptal eder.
+func _input(event: InputEvent) -> void:
+	if listening == "" or not (event is InputEventKey) or not event.pressed or event.echo:
+		return
+	get_viewport().set_input_as_handled()
+	var code: int = event.keycode
+	if code in [KEY_SHIFT, KEY_CTRL, KEY_ALT, KEY_META]:
+		return
+	if code == KEY_ESCAPE:
+		_stop_listen()
+		return
+	if _reserved(code):
+		if listen_btn != null:
+			listen_btn.text = tr("Bu tuş ayrılmış")
+		return
+	Cfg.set_key(listening, code)
+	_stop_listen()
+	_select_tab(cur_tab)
 
 
 # ---------------------------------------------------------------- gosterim

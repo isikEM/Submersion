@@ -81,6 +81,7 @@ func _ready() -> void:
 	Cfg.changed.connect(_on_cfg_changed)
 	_update_speed()
 	_on_tick()
+	_update_key_hints()
 
 
 # ---------------------------------------------------------------- yardimcilar
@@ -179,7 +180,7 @@ func _build_top() -> void:
 	h.add_child(graph_btn)
 	fc_btn = _small_btn("Tahmin", true)
 	fc_btn.button_pressed = true
-	fc_btn.tooltip_text = "Batacak yerleri göster (T)"
+	fc_btn.tooltip_text = ""
 	fc_btn.toggled.connect(func(on: bool): forecast_toggled.emit(on))
 	h.add_child(fc_btn)
 	var mb := _small_btn("Menü")
@@ -265,8 +266,7 @@ func _build_bottom() -> void:
 		last_cat = d.cat
 		h.add_child(_tool_button(id, _tip(id)))
 	h.add_child(VSeparator.new())
-	var tb := _tool_button("bulldoze", "Yık: tıkla ya da sürükleyerek alan seç. Maliyetin %30'u iade edilir. (X)")
-	tb.text = "Yık\nX"
+	var tb := _tool_button("bulldoze", "")
 	h.add_child(tb)
 	_refresh_costs()
 
@@ -625,12 +625,14 @@ func _show_event(ev: Dictionary) -> void:
 	for c in event_opts.get_children():
 		c.queue_free()
 	var i := 0
+	var btns: Array = []
 	for o in ev.options:
 		var b := Button.new()
+		btns.append(b)
 		b.text = str(o.label)
 		b.custom_minimum_size = Vector2(0, 38)
-		var cost: float = -float(o.fx.get("money", 0))
-		if cost > Game.money:
+		var cost: float = maxf(0.0, -float(o.fx.get("money", 0)))
+		if cost > 0.0 and cost > Game.money:
 			b.disabled = true
 			b.text = tr(str(o.label)) + tr("  (bütçe yetmiyor)")
 		var idx := i
@@ -640,6 +642,12 @@ func _show_event(ev: Dictionary) -> void:
 			Sfx.play("click"))
 		event_opts.add_child(b)
 		i += 1
+	var any_ok := false
+	for bb in btns:
+		if not bb.disabled:
+			any_ok = true
+	if not any_ok and not btns.is_empty():
+		btns[btns.size() - 1].disabled = false
 	event_layer.visible = true
 	Sfx.play("event")
 
@@ -814,4 +822,14 @@ func _on_cfg_changed() -> void:
 		if tool_btns.has(id):
 			tool_btns[id].tooltip_text = _tip(id)
 	_refresh_costs()
+	_update_key_hints()
 	_on_tick()
+
+
+func _update_key_hints() -> void:
+	if tool_btns.has("bulldoze"):
+		var b: Button = tool_btns["bulldoze"]
+		b.text = tr("Yık") + "\n" + Cfg.key_name("demolish")
+		b.tooltip_text = tr("Yık: tıkla ya da sürükleyerek alan seç. Maliyetin %30'u iade edilir.") + " (" + Cfg.key_name("demolish") + ")"
+	if fc_btn != null:
+		fc_btn.tooltip_text = tr("Batacak yerleri göster") + " (" + Cfg.key_name("forecast") + ")"

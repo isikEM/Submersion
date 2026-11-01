@@ -51,13 +51,13 @@ func _process(delta: float) -> void:
 	cam.size = lerpf(cam.size, zoom_target, 1.0 - exp(-10.0 * delta))
 
 	var dir := Vector3.ZERO
-	if Input.is_physical_key_pressed(KEY_W) or Input.is_physical_key_pressed(KEY_UP):
+	if Input.is_key_pressed(Cfg.key("pan_up")) or Input.is_key_pressed(KEY_UP):
 		dir.z -= 1.0
-	if Input.is_physical_key_pressed(KEY_S) or Input.is_physical_key_pressed(KEY_DOWN):
+	if Input.is_key_pressed(Cfg.key("pan_down")) or Input.is_key_pressed(KEY_DOWN):
 		dir.z += 1.0
-	if Input.is_physical_key_pressed(KEY_A) or Input.is_physical_key_pressed(KEY_LEFT):
+	if Input.is_key_pressed(Cfg.key("pan_left")) or Input.is_key_pressed(KEY_LEFT):
 		dir.x -= 1.0
-	if Input.is_physical_key_pressed(KEY_D) or Input.is_physical_key_pressed(KEY_RIGHT):
+	if Input.is_key_pressed(Cfg.key("pan_right")) or Input.is_key_pressed(KEY_RIGHT):
 		dir.x += 1.0
 	if dir != Vector3.ZERO and not orbit and input_enabled:
 		var b := Basis(Vector3.UP, deg_to_rad(yaw))
@@ -98,4 +98,3 @@ func reset() -> void:
 		cam.size = 30.0
 	position = Vector3(0, 1.5, 0)
 	_apply_rot()
-	

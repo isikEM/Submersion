@@ -727,7 +727,7 @@ func _trigger_event() -> void:
 
 func resolve_event(ev: Dictionary, i: int) -> void:
 	var fx: Dictionary = ev.options[i].fx
-	money = maxf(0.0, money + float(fx.get("money", 0)))
+	money += float(fx.get("money", 0))
 	pop = maxf(0.0, pop + float(fx.get("pop", 0)))
 	food = maxf(0.0, food + float(fx.get("food", 0)))
 	ppm += float(fx.get("ppm", 0))

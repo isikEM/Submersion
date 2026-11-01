@@ -17,10 +17,18 @@ var tips := true
 var ui_scale_idx := 1
 var win_size_idx := 0
 var lang := "en"
+const DEFAULT_KEYS := {
+	"pan_up": KEY_W, "pan_down": KEY_S, "pan_left": KEY_A, "pan_right": KEY_D,
+	"rot_left": KEY_Q, "rot_right": KEY_E, "pause": KEY_SPACE,
+	"slower": KEY_COMMA, "faster": KEY_PERIOD,
+	"forecast": KEY_T, "upgrade": KEY_U, "demolish": KEY_X,
+}
+var keys := {}
 
 
 func _ready() -> void:
 	_register_translations()
+	keys = DEFAULT_KEYS.duplicate()
 	load_cfg()
 	apply()
 	call_deferred("fit_window")
@@ -40,6 +48,8 @@ func load_cfg() -> void:
 	ui_scale_idx = clampi(int(c.get_value("s", "ui_scale_idx", ui_scale_idx)), 0, 2)
 	win_size_idx = clampi(int(c.get_value("s", "win_size_idx", win_size_idx)), 0, SIZES.size() - 1)
 	lang = str(c.get_value("s", "lang", lang))
+	for a in DEFAULT_KEYS:
+		keys[a] = int(c.get_value("keys", a, DEFAULT_KEYS[a]))
 
 
 func save_cfg() -> void:
@@ -55,6 +65,8 @@ func save_cfg() -> void:
 	c.set_value("s", "ui_scale_idx", ui_scale_idx)
 	c.set_value("s", "win_size_idx", win_size_idx)
 	c.set_value("s", "lang", lang)
+	for a in DEFAULT_KEYS:
+		c.set_value("keys", a, key(a))
 	c.save(PATH)
 
 
@@ -102,3 +114,34 @@ func _register_translations() -> void:
 		trk.add_message(k, k)
 	TranslationServer.add_translation(en)
 	TranslationServer.add_translation(trk)
+
+
+# ---------------------------------------------------------------- tus atamalari
+func key(action: String) -> int:
+	return int(keys.get(action, DEFAULT_KEYS[action]))
+
+
+func key_name(action: String) -> String:
+	var code := key(action)
+	if code == KEY_SPACE:
+		return tr("BOŞLUK")
+	if code == KEY_COMMA:
+		return ","
+	if code == KEY_PERIOD:
+		return "."
+	return OS.get_keycode_string(code).to_upper()
+
+
+## Secilen tus baska bir eylemde kullaniliyorsa iki eylemin tuslari yer degistirir.
+func set_key(action: String, code: int) -> void:
+	var old := key(action)
+	for a in DEFAULT_KEYS:
+		if a != action and key(a) == code:
+			keys[a] = old
+	keys[action] = code
+	changed.emit()
+
+
+func reset_keys() -> void:
+	keys = DEFAULT_KEYS.duplicate()
+	changed.emit()

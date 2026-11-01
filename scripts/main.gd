@@ -500,15 +500,15 @@ func _unhandled_input(event: InputEvent) -> void:
 			_hot(10)
 		elif k == KEY_EQUAL:
 			_hot(11)
-		elif k == KEY_T:
+		elif k == Cfg.key("forecast"):
 			hud.toggle_forecast()
-		elif k == KEY_U:
+		elif k == Cfg.key("upgrade"):
 			hud.try_upgrade_selected()
-		elif k == KEY_COMMA:
+		elif k == Cfg.key("slower"):
 			Game.set_speed(maxi(Game.speed_idx - 1, 0))
-		elif k == KEY_PERIOD:
+		elif k == Cfg.key("faster"):
 			Game.set_speed(mini(Game.speed_idx + 1, 3))
-		elif k == KEY_X:
+		elif k == Cfg.key("demolish"):
 			hud.select_tool("bulldoze")
 		elif k == KEY_ESCAPE:
 			if pressing or dragging:
@@ -521,11 +521,11 @@ func _unhandled_input(event: InputEvent) -> void:
 				_clear_selection()
 			else:
 				_open_pause()
-		elif k == KEY_SPACE:
+		elif k == Cfg.key("pause"):
 			Game.toggle_pause()
-		elif k == KEY_Q:
+		elif k == Cfg.key("rot_left"):
 			rig.rotate_view(-1)
-		elif k == KEY_E:
+		elif k == Cfg.key("rot_right"):
 			rig.rotate_view(1)
 
 

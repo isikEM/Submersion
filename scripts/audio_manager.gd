@@ -13,6 +13,11 @@ var amb_player: AudioStreamPlayer
 var started := false
 var _lp := 0.0
 var _last := {}
+var variants := {}
+var _last_var := {}
+var _t_b1 := 0.0
+var _t_b2 := 0.0
+var _t_hp := 0.0
 var _notes := [[110.0, 0.0], [164.875, 1.0], [220.0, 2.0], [261.625, 3.0], [329.625, 4.0]]
 
 
@@ -29,7 +34,12 @@ func _ready() -> void:
 	snd["destroy"] = _make(0.9, _f_destroy)
 	snd["alarm"] = _make(0.6, _f_alarm)
 	snd["event"] = _make(1.2, _f_event)
-	snd["thunder"] = _make(2.4, _f_thunder)
+	_t_b1 = 0.0
+	_t_b2 = 0.0
+	_t_hp = 0.0
+	snd["thunder"] = _make(5.0, _f_thunder)
+	for nm in snd.keys():
+		_try_external(str(nm))
 
 
 func _make(dur: float, fn: Callable, loop: bool = false, rate: int = RATE) -> AudioStreamWAV:
@@ -115,7 +125,7 @@ func play(sfx: String, vol: float = 0.0, pitch: float = 1.0) -> void:
 	_last[sfx] = now
 	var p: AudioStreamPlayer = pool[idx]
 	idx = (idx + 1) % pool.size()
-	p.stream = snd[sfx]
+	p.stream = _pick(sfx)
 	p.volume_db = vol + linear_to_db(maxf(Cfg.sfx, 0.0001))
 	p.pitch_scale = pitch
 	p.play()
@@ -150,5 +160,69 @@ func _apply_vols() -> void:
 		music_player.volume_db = -14.0 + linear_to_db(maxf(Cfg.music, 0.0001))
 
 
+## Gercege yakin gok gurultusu: keskin catirti + duzensiz yuvarlanan alcak gurultu + uzaktan ikinci patlama.
 func _f_thunder(t: float) -> float:
-	return _noise() * exp(-t * 1.6) * 0.45 * (0.55 + 0.45 * sin(t * 24.0)) + sin(TAU * 48.0 * t) * exp(-t * 2.0) * 0.5
+	var n := _noise()
+	_t_b1 += (n - _t_b1) * 0.02
+	_t_b2 += (n - _t_b2) * 0.09
+	_t_hp += (n - _t_hp) * 0.45
+	var crack := (n - _t_hp) * exp(-t * 38.0) * 0.9
+	var roll := 0.55 + 0.45 * sin(t * 6.3 + sin(t * 2.1) * 2.5)
+	roll *= 0.7 + 0.3 * sin(t * 13.0 + 1.3)
+	var attack := smoothstep(0.0, 0.12, t)
+	var rumble := _t_b1 * 6.5 * exp(-t * 0.75) * roll * attack
+	var mid := _t_b2 * 2.4 * exp(-t * 1.6) * roll * attack
+	var t2 := t - 0.9
+	var again := 0.0
+	if t2 > 0.0:
+		again = _t_b1 * 6.0 * exp(-t2 * 1.4) * smoothstep(0.0, 0.08, t2) + (n - _t_hp) * exp(-t2 * 30.0) * 0.4
+	var fade := clampf((5.0 - t) / 0.5, 0.0, 1.0)
+	return (crack + rumble + mid + again) * 0.8 * fade
+
+
+const AUDIO_EXT := ["ogg", "wav", "mp3"]
+
+
+## res://audio/ icindeki dis ses dosyalari, uretilen sesin yerine kullanilir. Birden fazla varsa rastgele secilir.
+## Kabul edilen adlar:  <ad>.ogg, <ad>_2.ogg, <ad>2.ogg ... (12'ye kadar)  ve  res://audio/<ad>/ klasorundeki her dosya.
+func _try_external(nm: String) -> void:
+	var list: Array = []
+	var seen := {}
+	for ext in AUDIO_EXT:
+		var cands: Array = ["res://audio/%s.%s" % [nm, ext]]
+		for i in range(1, 13):
+			cands.append("res://audio/%s_%d.%s" % [nm, i, ext])
+			cands.append("res://audio/%s%d.%s" % [nm, i, ext])
+		for p in cands:
+			if ResourceLoader.exists(p) and not seen.has(p):
+				seen[p] = true
+				list.append(load(p))
+	var dir := DirAccess.open("res://audio/%s" % nm)
+	if dir != null:
+		for f in dir.get_files():
+			var fn: String = f
+			if fn.ends_with(".import") or fn.ends_with(".remap"):
+				fn = fn.get_basename()
+			if fn.get_extension().to_lower() in AUDIO_EXT:
+				var p2 := "res://audio/%s/%s" % [nm, fn]
+				if not seen.has(p2) and ResourceLoader.exists(p2):
+					seen[p2] = true
+					list.append(load(p2))
+	if not list.is_empty():
+		variants[nm] = list
+		snd[nm] = list[0]
+
+
+## Ayni ses arka arkaya iki kez calmasin diye varyantlardan rastgele secer.
+func _pick(sfx: String) -> AudioStream:
+	if variants.has(sfx):
+		var list: Array = variants[sfx]
+		if list.size() > 1:
+			var i := randi() % list.size()
+			if i == int(_last_var.get(sfx, -1)):
+				i = (i + 1 + randi() % (list.size() - 1)) % list.size()
+			_last_var[sfx] = i
+			return list[i]
+		return list[0]
+	return snd[sfx]
+	

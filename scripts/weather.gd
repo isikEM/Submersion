@@ -83,4 +83,4 @@ func update(delta: float, frozen: bool) -> void:
 		thunder_delay -= delta
 		if thunder_delay < 0.0:
 			thunder_delay = -1.0
-			Sfx.play("thunder", -4.0)
+			Sfx.play("thunder", -4.0, randf_range(0.85, 1.1))

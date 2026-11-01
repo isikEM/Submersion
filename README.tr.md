@@ -1,7 +1,5 @@
 <div align="center">
 
-<img src="docs/images/cover.png" width="260" alt="The Submersion kapak görseli" />
-
 # THE SUBMERSION
 
 ### Deniz yükseliyor. Şehrini 2026'dan 2050'ye ayakta tut.
@@ -16,14 +14,12 @@
 
 [English](README.md) · **Türkçe**
 
-[Oyun Hakkında](#-oyun-hakkında) · [COP31 Temaları](#-cop31-temaları-için-tasarlandı) · [Bir Oyun Nasıl İşler](#-bir-oyun-nasıl-işler) · [Görseller](#-ekran-görüntüleri) · [Oyna / Kur](#-oyna--kur) · [Kontroller](#-kontroller) · [Yol Haritası](#-yol-haritası)
+[Oyun Hakkında](#-oyun-hakkında) · [COP31 Temaları](#-cop31-temaları-için-tasarlandı) · [Bir Oyun Nasıl İşler](#-bir-oyun-nasıl-işler) · [Görseller](#-ekran-görüntüleri) · [Kontroller](#-kontroller)
 
 </div>
 
 ---
 
-<p align="center">
-  <img src="docs/images/menu.png" alt="The Submersion ana menüsü: eriyen bir buz kütlesi" width="880" />
 </p>
 
 ## 🌊 Oyun Hakkında
@@ -35,8 +31,7 @@
 | **Tür** | Gerçek zamanlı strateji, hayatta kalma ve şehir kurma (izometrik 3D) |
 | **Platform** | Windows (Godot export). Linux/macOS için de Godot ile export edilebilir. Godot 4 çalışan her bilgisayarda kaynaktan açılır |
 | **Oyuncu** | Tek oyunculu |
-| **Oyun süresi** | Normal hızda yaklaşık 7 dakika (24 yılın tamamı) |
-| **Diller** | İngilizce (varsayılan) ve Türkçe, Ayarlar'dan değiştirilir |
+| **Diller** | İngilizce ve Türkçe, ayarlardan değiştirilir |
 | **Amaç** | GameUp Türkiye oyun hackathonu için, 48 saatlik bir geliştirme süresinde yapıldı |
 
 ### Hikaye
@@ -50,21 +45,19 @@ Her oyun tek bir soruya varır:
 - **Belirtiyi tedavi et.** Paranla set ve savunma yap. Zaman kazandırır, ama duvarlar yıpranır ve karbon akmaya devam eder; deniz sonradan daha hızlı yükselir.
 - **Nedeni tedavi et.** Temiz enerjiye geç, karbonu vergilendir, karbon yakalama kur. Kısa vadede şehir fakirleşir ve öfkelenir (elektrik kesintileri, huzursuzluk). Ama CO₂ gerçekten düşerse **deniz yavaşlar, hatta geri çekilebilir**.
 
-Kazanan oyunların çoğu ikisini birleştirir. **Hiçbir şey yapmamak her zaman kaybettirir:** başlangıç bölgesi 2040'larda sular altında kalır ve nüfus ile moral hayatta kalma çizgisinin altına düşer.
-
 ### Öne çıkan özellikler
 
-- 🌍 **Karbon denizi yönetir.** Salımların CO₂ seviyesini (ppm) belirler; CO₂ seviyesi denizin yükselme hızını belirler ve 480 ppm'in üstünde hızlanır. CO₂'yi 400 ppm'in altına çekersen su yavaşlar, sonra geri çekilir.
-- 🏙️ **Gerçek ödünleşimleri olan 12 bina:** konut, apartman, tarla, dikey çiftlik, pazar, fabrika, kömür santrali, güneş paneli, rüzgar türbini, karbon yakalama, orman park ve set.
-- 🏗️ **Dikey mimari.** Apartmanlar ve dikey çiftlikler seli **1,2 m daha yüksek** atlatır; konutlar ve tarlalar **yerinde yükseltilebilir**.
-- 🔮 **Sel tahmini katmanı.** Kırmızı kareler yaklaşık 2 yıl, turuncu kareler yaklaşık 5 yıl içinde batar. Su gelmeden planla.
-- 🌊 **Yaşayan kıyı.** Derinliğe duyarlı su shader'ı, kıyı köpüğü, ıslak kum tonu, fırtına dalgaları ve kaybedildiğinde gözle görülür şekilde batan binalar.
-- ⚖️ **Politikalar ve ikilemler.** Fosil yakıt yasağı, karbon vergisi, yeşil teşvik; ayrıca iklim mültecileri, sıcak dalgası, fırtına dalgası, kuraklık ve COP yeşil fon teklifi gibi olaylar.
-- ⛈️ **Dinamik hava durumu.** Açık, bulutlu, çisenti, yağmur, şiddetli yağış ve yıldırımlı fırtına. Bir saniye bir gün olduğu için gece-gündüz döngüsü yoktur.
-- 🎬 Her biri kendi sinematik anlatımına sahip **altı son** (aşağıya bak).
-- 🧰 **Kullanım kolaylığı.** Sürükleyerek kutu seçimi, yerinde yükseltme, 3 kayıt yuvası ve yıllık otomatik kayıt, tamamen değiştirilebilir tuşlar, kapatılabilir ipuçları, düşük grafik modu, arayüz ölçeği ve çözünürlükten bağımsız fare seçimi.
-- 🎨 **Harici varlık gerektirmez.** Tüm ses ve müzik kodla üretilir, binalar kodla modellenir, menü sahnesi prosedürel olarak oluşturulur.
+-  **Karbon denizi yönetir.** Salımların CO₂ seviyesini (ppm) belirler; CO₂ seviyesi denizin yükselme hızını belirler ve 480 ppm'in üstünde hızlanır. CO₂'yi 400 ppm'in altına çekersen su yavaşlar, sonra geri çekilir.
+-  **Gerçek ödünleşimleri olan 12 bina:** konut, apartman, tarla, dikey çiftlik, pazar, fabrika, kömür santrali, güneş paneli, rüzgar türbini, karbon yakalama, orman park ve set.
+-  **Dikey mimari.** Apartmanlar ve dikey çiftlikler seli **1,2 m daha yüksek** atlatır; konutlar ve tarlalar **yerinde yükseltilebilir**.
+-  **Sel tahmini katmanı.** Kırmızı kareler yaklaşık 2 yıl, turuncu kareler yaklaşık 5 yıl içinde batar. Su gelmeden planla.
+-  **Yaşayan kıyı.** Derinliğe duyarlı su shader'ı, kıyı köpüğü, ıslak kum tonu, fırtına dalgaları ve kaybedildiğinde gözle görülür şekilde batan binalar.
+-  **Politikalar ve ikilemler.** Fosil yakıt yasağı, karbon vergisi, yeşil teşvik; ayrıca iklim mültecileri, sıcak dalgası, fırtına dalgası, kuraklık ve COP yeşil fon teklifi gibi olaylar.
+-  **Dinamik hava durumu.** Açık, bulutlu, çisenti, yağmur, şiddetli yağış ve yıldırımlı fırtına. Bir saniye bir gün olduğu için gece-gündüz döngüsü yoktur.
+-  Her biri kendi sinematik anlatımına sahip **altı son** (aşağıya bak).
+-  **Kullanım kolaylığı.** Sürükleyerek kutu seçimi, yerinde yükseltme, 3 kayıt yuvası ve yıllık otomatik kayıt, tamamen değiştirilebilir tuşlar, kapatılabilir ipuçları, düşük grafik modu, arayüz ölçeği ve çözünürlükten bağımsız fare seçimi.
 
+  
 ## 🌍 COP31 Temaları İçin Tasarlandı
 
 Oyun, hackathonun dört temasının etrafında tasarlandı:
@@ -76,16 +69,13 @@ Oyun, hackathonun dört temasının etrafında tasarlandı:
 | **Okyanuslar ve denizler** | Deniz seviyesi yükselmesi ana mekaniktir: CO₂ ile hızlanır, araziyi kare kare sular altında bırakır, fırtınalarda dalgalanır ve atmosferi temizlersen geri çekilebilir. |
 | **İklim dirençli şehirler** | Setler, dikey mimari, yerinde yükseltme ve sel tahmini dayanıklılığı öğretir: gelene **uyum sağla** ve nedeni **azalt**. |
 
-## 🎮 Bir Oyun Nasıl İşler
+## Bir Oyun Nasıl İşler
 
-1. **Duraklatılmış başlarsın.** 2026'da küçük bir kasabayla başlarsın. Birkaç binayı sakin sakin yerleştir.
-2. **Oynat'a bas.** Zaman 2026'dan 2050'ye üç hızda akar (saniyede yaklaşık 8 / 20 / 50 gün). İstediğin an duraklat; duraklatılmışken de inşa edip yıkabilirsin.
-3. **Şehri dengede tut.** **Elektrik**, **gıda**, **barınma** ve **iş** sağlıklı olsun ki **moral** yüksek kalsın. Moral sıfıra inerse halk isyan eder.
-4. **Denizi izle.** Tahmini, CO₂ ve deniz grafiğini, binaların üstündeki risk işaretlerini kontrol et. Set kur, yükselt ya da salımları azalt.
-5. **İkilemlerle yüzleş.** Zaman zaman bir olay karar ister. Bazı seçimler para, bazıları karbon, bazıları güven kaybettirir.
-6. **2050'ye ulaş.** Hayatta kalmak için 2050'de en az **40 kişi ve %30 moral** gerekir. Oraya nasıl vardığın, hangi sonu göreceğini belirler.
-
-Oyun yumuşak başlar ve zorlaşır. Deniz yükselişi %40 hızla başlar, 2034 civarında tam güce çıkar; ilk olaylar hafiftir.
+1. **Başla.** 2026'da küçük bir kasabayla başlarsın. Birkaç binayı sakin sakin yerleştir.
+2. **Şehri dengede tut.** **Elektrik**, **gıda**, **barınma** ve **iş** sağlıklı olsun ki **moral** yüksek kalsın. Moral sıfıra inerse halk isyan eder.
+3. **Denizi izle.** Tahmini, CO₂ ve deniz grafiğini, binaların üstündeki risk işaretlerini kontrol et. Set kur, yükselt ya da salımları azalt.
+4. **İkilemlerle yüzleş.** Zaman zaman bir olay karar ister. Bazı seçimler para, bazıları karbon, bazıları güven kaybettirir.
+5. **2050'ye ulaş.** Hayatta kalmak için 2050'de en az **40 kişi ve %30 moral** gerekir. Oraya nasıl vardığın, hangi sonu göreceğini belirler.
 
 ### Sonlar
 
@@ -98,7 +88,7 @@ Oyun yumuşak başlar ve zorlaşır. Deniz yükselişi %40 hızla başlar, 2034 
 | 🔴 **Halk İsyanı** | Moralin sıfıra düşmesi |
 | 🌊 **Şehir Boşaldı** | Tüm binaların kaybedilmesi ya da nüfusun çökmesi |
 
-## 🖼️ Ekran Görüntüleri
+## Ekran Görüntüleri
 
 <table>
   <tr>
@@ -111,9 +101,7 @@ Oyun yumuşak başlar ve zorlaşır. Deniz yükselişi %40 hızla başlar, 2034 
   </tr>
 </table>
 
-> 🎥 **Oynanış videosu:** oynanış videosunun bağlantısı buraya eklenecek.
-
-## 🛠️ Kullanılan Teknolojiler
+## Kullanılan Teknolojiler
 
 | | |
 |---|---|
@@ -127,42 +115,7 @@ Oyun yumuşak başlar ve zorlaşır. Deniz yükselişi %40 hızla başlar, 2034 
 | **Kütüphane / eklenti** | Yok. Üçüncü taraf bağımlılık yoktur |
 | **Araçlar** | Git, Blender ve kod yazımında yardımcı olarak Claude yapay zeka asistanı (Anthropic) |
 
-## 🚀 Oyna & Kur
-
-### Oyuncular için
-
-1. **[Releases sayfasını](https://github.com/YOUR-USERNAME/the-submersion/releases)** aç ve sistemin için son sürümü indir.
-2. Arşivi çıkar ve çalıştırılabilir dosyayı aç.
-3. **New Game**'e bas, birkaç bina yerleştir, sonra saati başlatmak için **▶** düğmesine bas.
-
-Kurulum ya da özel bir ekran kartı gerekmez.
-
-### Geliştiriciler için
-
-**Gereksinim:** [Godot 4.x](https://godotengine.org/download) (standart sürüm, .NET değil). Başka bir şey gerekmez.
-
-```bash
-# 1. Depoyu klonla
-git clone https://github.com/YOUR-USERNAME/the-submersion.git
-cd the-submersion
-```
-
-2. **Godot**'u aç ve **Import** (İçe Aktar) düğmesine bas.
-3. Klonladığın klasördeki `project.godot` dosyasını seç ve **Import & Edit**'e bas.
-4. İlk içe aktarmada autoload ya da sınıf hataları görürsen **Project → Reload Current Project** komutunu bir kez çalıştır.
-5. **F5**'e bas (Çalıştır). Ana sahne `main.tscn`'dir.
-
-**İsteğe bağlı: 3D modelleri Blender ile üret**
-
-1. Blender'ı aç ve **Scripting** sekmesine geç.
-2. `blender/generate_models.py` dosyasını aç, `OUT_DIR` değerini bu projenin `models/` klasörüne ayarla.
-3. **Run Script**'e bas. 15 adet `.glb` dosyası (12 bina ve 3 vatandaş) yazar. Godot bunları içe aktarır ve otomatik kullanır. Olmazsa kodla üretilen modeller kullanılır.
-
-**İsteğe bağlı: kendi seslerini kullan.** `audio/` klasörüne `.ogg/.wav/.mp3` dosyaları koy (örneğin `thunder.ogg`, `thunder_2.ogg` ya da `thunder/` klasörü). Üretilen sesin yerine geçerler ve birden fazla varyant rastgele çalınır. Ayrıntı: [`audio/README.txt`](audio/README.txt).
-
-**Build al:** *Project → Export*, bir preset ekle, **GL Compatibility**'nin açık kaldığından emin ol ve export et.
-
-## ⌨️ Kontroller
+## Kontroller
 
 Varsayılanlar aşağıdadır. **✱ işaretli her tuş** *Ayarlar → Kontroller* bölümünden değiştirilebilir.
 
@@ -184,53 +137,8 @@ Varsayılanlar aşağıdadır. **✱ işaretli her tuş** *Ayarlar → Kontrolle
 
 Her şeyin üstüne gelince kısa bir açıklama çıkar. İpuçları oynarken görünür ve kapatılabilir.
 
-## 🗂️ Proje Yapısı
-
-```
-.
-├── project.godot            Godot projesi (GL Compatibility)
-├── main.tscn                Tek sahne; geri kalan her şey kodla kurulur
-├── scripts/
-│   ├── game_manager.gd      "Game" autoload: zaman, ekonomi, karbon, deniz, sel, olaylar, kayıt
-│   ├── game_data.gd         Tüm denge sayıları: binalar, olaylar, sabitler
-│   ├── world.gd             Arazi, su, sel görselleri, fare seçimi, tahmin katmanı
-│   ├── weather.gd           Dinamik hava durumu ve yıldırım
-│   ├── hud.gd, graph.gd     Minimal arayüz ve iklim grafiği
-│   ├── menu.gd, menu_backdrop.gd, ui_style.gd   Menüler, ayarlar, eriyen buz kütlesi sahnesi
-│   ├── ending.gd            Sinematik bitiş ekranları
-│   ├── building*.gd, citizens.gd   Binalar, prosedürel modeller, dolaşan vatandaşlar
-│   ├── audio_manager.gd     Üretilen ses ve müzik, dışarıdan ses değiştirme
-│   ├── settings.gd, lang_data.gd   Ayarlar, tuş atamaları, İngilizce/Türkçe metinler
-│   └── main.gd, camera_rig.gd, tutorial.gd
-├── blender/generate_models.py   İsteğe bağlı Blender model üretici
-├── audio/                   İsteğe bağlı ses dosyaları
-└── docs/images/             README görselleri
-```
-
-## 🛣️ Yol Haritası
-
-- [x] **Hackathon sürümü (Kasım 2026):** ana menüden altı sona kadar eksiksiz, oynanabilir bir dilim
-- [ ] **Hackathon sürümünün ötesi:** daha fazla içerik, denge ve cila, **2027 yılbaşına kadar**
-- [ ] **Kapsamlı herkese açık demo:** Ocak 2027
-- [ ] **Oyun platformlarında tam sürüm:** 2027 ortasına kadar
-
-Düşünülen fikirler: beş yılda bir COP zirvesi hedefleri, daha fazla olay ve bina türü, birden fazla ada haritası ve senaryo, sonsuz mod ve kapsamlı bir sanat ve ses çalışması.
-
-## 👤 Geliştirici
-
-**Ensar Muhammed Işık**, Oyun Geliştirici ve Tasarımcı
-Balıkesir Şehit Turgut Solak Fen Lisesi 12. sınıf öğrencisi. Tek kişilik geliştirici; daha önce Godot'ta izometrik hayatta kalma strateji oyunları geliştirdi.
-
-## 🙏 Teşekkürler ve Kaynaklar
-
-- **GameUp Türkiye** oyun hackathonu (COP31 iklim temaları) için yapıldı.
-- Kapak görseli: hackathon sunumu için hazırlanmış konsept görsel.
-- Motor: [Godot](https://godotengine.org) (MIT lisanslı). Bu depodaki tüm kod, ses sentezi, shader'lar ve oyun içi modeller projeye özgüdür.
-
 ---
 
 <div align="center">
 
-*Deniz pazarlık yapmaz. Soru, ne kadar zaman kazandığın ve onunla ne yaptığındır.*
-
-</div>
+Teşekkürler
